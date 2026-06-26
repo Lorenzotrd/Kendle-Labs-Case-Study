@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn Growth System — KENDLE Labs</title>
+<meta name="description" content="How KENDLE Labs turned LinkedIn into a growth channel for three B2B companies — founder-led content, outbound and tracking run as one system.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0F1A;--bg-2:#0E1524;--bg-3:#111A2B;
+    --ink:#EDF2EF;--ink-soft:#8B98A5;--ink-dim:#6B7886;
+    --line:rgba(255,255,255,.09);--line-soft:rgba(255,255,255,.045);
+    --green:#00CC6A;--green-bright:#00FF88;--green-deep:#00CC6A;--green-wash:rgba(0,204,106,.12);
+    --card:#0E1524;--radius:18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Geist',system-ui,sans-serif;font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  .narrow{max-width:760px;margin:0 auto;padding:0 28px}
+  h1,h2,h3,.display{font-family:'Geist',system-ui,sans-serif;letter-spacing:-0.02em;line-height:1.06}
+  a{color:inherit}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(10,15,26,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{font-family:'Geist';font-weight:800;font-size:21px;letter-spacing:-0.02em}
+  .logo span{color:var(--green)}
+  .nav-cta{background:var(--green);color:#04110a;text-decoration:none;font-weight:700;font-size:14px;padding:11px 20px;border-radius:999px;transition:transform .2s,box-shadow .2s}
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,204,106,.28)}
+
+  /* HERO */
+  .hero{padding:72px 0 56px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:500;color:var(--ink-soft);font-family:'Geist Mono';letter-spacing:.04em;margin-bottom:26px}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--green-bright);box-shadow:0 0 0 4px var(--green-wash)}
+  .hero h1{font-size:clamp(38px,5.6vw,62px);font-weight:800;margin-bottom:22px;max-width:880px}
+  .hero h1 em{font-style:normal;color:var(--green-bright)}
+  .hero .sub{font-size:clamp(17px,2vw,20px);color:var(--ink-soft);max-width:640px;margin-bottom:30px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px 28px;padding-top:26px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-soft)}
+  .meta-row b{color:var(--ink);font-weight:600}
+
+  /* HEADLINE STAT BANNER */
+  .stat-banner{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:38px}
+  .stat-banner .s{background:var(--bg-2);padding:30px 28px}
+  .stat-banner .s .n{font-family:'Geist';font-weight:800;font-size:clamp(30px,4vw,44px);color:var(--green-bright);line-height:1;letter-spacing:-0.02em}
+  .stat-banner .s .l{font-size:13.5px;color:var(--ink-soft);margin-top:10px;line-height:1.4}
+
+  /* SECTION */
+  .section{padding:60px 0;border-top:1px solid var(--line)}
+  .kicker{font-family:'Geist Mono';font-size:12.5px;color:var(--green);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+  .section h2{font-size:clamp(26px,3.6vw,38px);font-weight:700;margin-bottom:20px}
+  .section p.body{font-size:17px;color:var(--ink-soft);margin-bottom:16px;max-width:720px}
+  .section p.body b{color:var(--ink);font-weight:600}
+
+  /* CASE BLOCK */
+  .case{border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-bottom:26px;background:var(--bg-2)}
+  .case-head{padding:32px 38px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+  .case-head .ci .tag{display:inline-block;font-family:'Geist Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-bright);background:var(--green-wash);padding:6px 12px;border-radius:999px;margin-bottom:14px}
+  .case-head .ci h3{font-size:28px;font-weight:800;margin-bottom:5px}
+  .case-head .ci .ind{font-size:14px;color:var(--ink-soft)}
+  .case-head .headline{font-family:'Geist';font-weight:700;font-size:clamp(20px,2.4vw,27px);color:var(--ink);text-align:right;max-width:340px;line-height:1.12;letter-spacing:-0.02em}
+  .case-head .headline em{font-style:normal;color:var(--green-bright)}
+  .case-body{padding:30px 38px 34px}
+  .case-body .lbl{font-family:'Geist Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);margin:22px 0 10px}
+  .case-body .lbl:first-child{margin-top:0}
+  .case-body p{font-size:15.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:8px}
+  .case-body p b{color:var(--ink);font-weight:600}
+  .plays{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:4px}
+  .plays li{display:flex;gap:11px;font-size:15px;color:var(--ink-soft)}
+  .plays li::before{content:"→";color:var(--green-bright);font-weight:700}
+  .plays li b{color:var(--ink);font-weight:600}
+  .res-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:14px}
+  .res-grid .r{background:var(--bg-3);padding:20px 18px}
+  .res-grid .r .v{font-family:'Geist';font-weight:800;font-size:25px;color:var(--green-bright);line-height:1;letter-spacing:-0.02em}
+  .res-grid .r .v.w{color:var(--ink)}
+  .res-grid .r .k{font-size:12px;color:var(--ink-soft);margin-top:7px;line-height:1.3}
+
+  /* CONSTRAINT / BRIEF */
+  .constraint-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+  .issue-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .issue-list li{display:flex;gap:13px;font-size:15.5px;color:var(--ink-soft)}
+  .issue-list li::before{content:"\00d7";color:#ff6b5e;font-weight:700;font-size:18px;line-height:1.3}
+  .brief-box{background:linear-gradient(160deg,rgba(0,204,106,.10),rgba(0,255,136,.02));border:1px solid rgba(0,204,106,.28);color:#fff;border-radius:var(--radius);padding:30px}
+  .brief-box .t{font-family:'Geist Mono';font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--green-bright);margin-bottom:14px}
+  .brief-box p{font-size:16px;line-height:1.55;color:#dfe7e3}
+
+  /* ARCH */
+  .arch{display:flex;flex-direction:column}
+  .block{display:grid;grid-template-columns:56px 1fr;gap:22px;padding:24px 0;border-top:1px solid var(--line)}
+  .block:first-child{border-top:none}
+  .block .bn{font-family:'Geist';font-weight:800;font-size:30px;color:var(--line-soft);line-height:1;-webkit-text-stroke:1px var(--ink-dim);transition:color .2s}
+  .block:hover .bn{color:var(--green);-webkit-text-stroke:0}
+  .block h3{font-size:20px;font-weight:700;margin-bottom:9px}
+  .block ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 10px;margin-bottom:10px}
+  .block ul li{font-size:13.5px;color:var(--ink-soft);background:var(--bg-3);border:1px solid var(--line-soft);padding:6px 12px;border-radius:8px}
+  .freq{font-size:13px;color:var(--green-bright);font-weight:500;font-family:'Geist Mono'}
+
+  /* TOOLS */
+  .tools{display:flex;flex-wrap:wrap;gap:10px}
+  .tool{border:1px solid var(--line);background:var(--bg-2);border-radius:10px;padding:12px 16px;font-size:14px;font-weight:500;transition:border-color .2s,transform .2s}
+  .tool:hover{border-color:var(--green);transform:translateY(-2px)}
+  .tool span{color:var(--ink-soft);font-weight:400;font-size:13px}
+
+  /* MEANS */
+  .means{background:var(--bg-2);border:1px solid var(--line);border-radius:24px;padding:40px}
+  .means .t{font-family:'Geist Mono';font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:16px}
+  .means h2{font-size:clamp(22px,2.8vw,30px);font-weight:700;margin-bottom:16px}
+  .means p{font-size:16.5px;color:var(--ink-soft);max-width:700px}
+
+  /* CSJ */
+  .csj{background:linear-gradient(180deg,rgba(0,204,106,.12),rgba(10,15,26,0));border:1px solid rgba(0,204,106,.24);border-radius:24px;padding:46px}
+  .csj .tag{display:inline-block;font-family:'Geist Mono';font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-bright);background:rgba(0,204,106,.10);border:1px solid rgba(0,204,106,.3);padding:7px 14px;border-radius:999px;margin-bottom:18px}
+  .csj h2{font-size:clamp(24px,3.4vw,36px);font-weight:700;margin-bottom:14px}
+  .csj .lead{color:var(--ink-soft);max-width:680px;margin-bottom:30px}
+  .csj-cols{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:32px}
+  .csj-cols h4{font-size:13px;font-family:'Geist Mono';text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);margin-bottom:13px}
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px}
+  .pill{background:var(--bg-3);border:1px solid var(--line);border-radius:8px;padding:7px 13px;font-size:13.5px;font-weight:500}
+  .forecast{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .forecast .fhead{padding:16px 22px;font-family:'Geist Mono';font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border-bottom:1px solid var(--line);font-weight:500}
+  .forecast .fgrid{display:grid;grid-template-columns:repeat(2,1fr)}
+  .forecast .fitem{padding:15px 22px;border-bottom:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:baseline;gap:14px;font-size:14.5px;color:var(--ink-soft)}
+  .forecast .fitem:nth-child(odd){border-right:1px solid var(--line-soft)}
+  .forecast .fitem .fv{font-family:'Geist';font-weight:700;color:var(--green-bright);font-size:16px;text-align:right;white-space:nowrap}
+  .forecast .pipeline{grid-column:1/-1;background:var(--green);border-right:none;color:#04110a}
+  .forecast .pipeline span{color:#04110a}
+  .forecast .pipeline .fv{color:#04110a;font-weight:800}
+
+  /* FINAL */
+  .final{text-align:center;padding:80px 0;border-top:1px solid var(--line)}
+  .final h2{font-size:clamp(28px,4vw,46px);font-weight:800;max-width:740px;margin:0 auto 18px}
+  .final p{color:var(--ink-soft);max-width:580px;margin:0 auto 32px;font-size:18px}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#04110a;text-decoration:none;font-weight:700;font-size:17px;padding:16px 30px;border-radius:999px;transition:transform .2s,box-shadow .2s}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,204,106,.3)}
+  .btn .ar{color:#04110a}
+  .note{font-size:13px;color:var(--ink-soft);background:var(--bg-2);border-radius:12px;padding:14px 18px;border-left:3px solid var(--green);margin-top:24px}
+  footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--ink-soft);font-size:13.5px}
+
+  @media(max-width:860px){
+    .stat-banner{grid-template-columns:1fr}
+    .case-head{flex-direction:column}
+    .case-head .headline{text-align:left;max-width:none}
+    .res-grid{grid-template-columns:1fr 1fr}
+    .constraint-grid{grid-template-columns:1fr;gap:24px}
+    .csj-cols{grid-template-columns:1fr}
+    .forecast .fitem:nth-child(odd){border-right:none}
+    .means,.csj{padding:30px 24px}
+  }
+  @media(max-width:520px){
+    .res-grid{grid-template-columns:1fr 1fr}
+    .forecast .fgrid{grid-template-columns:1fr}
+    .nav-cta{display:none}
+    .case-head,.case-body{padding-left:24px;padding-right:24px}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap nav-in">
+    <div class="logo">KENDLE <span>Labs</span></div>
+    <a href="https://cal.com/kendle-team/marketing" target="_blank" rel="noopener" class="nav-cta">Book a call →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span> CASE STUDY · FOUNDER-LED CONTENT + LINKEDIN OUTBOUND</div>
+    <h1>How we turned LinkedIn into a <em>growth channel</em> for three B2B companies</h1>
+    <p class="sub">Founder-led content to warm the market, outbound to start the conversation, and tracking to sharpen both — run as one system, not three disconnected channels.</p>
+    <div class="stat-banner">
+      <div class="s"><div class="n">1M+</div><div class="l">Combined monthly impressions across founder content</div></div>
+      <div class="s"><div class="n">34</div><div class="l">Calls booked from one outbound campaign (800 prospects)</div></div>
+      <div class="s"><div class="n">0</div><div class="l">New SDRs the clients had to hire</div></div>
+    </div>
+    <div class="meta-row">
+      <span><b>Clients:</b> Reveel · Kenomic · Modjo Agency</span>
+      <span><b>Channels:</b> LinkedIn content · outbound · email</span>
+      <span><b>Where it lives:</b> the client's own stack</span>
+    </div>
+  </div>
+</header>
+
+<!-- THE CONSTRAINT -->
+<section class="section">
+  <div class="wrap">
+    <div class="kicker">The constraint</div>
+    <h2>Credibility was there. The channel wasn't built.</h2>
+    <p class="body">Each company had a real product and a founder worth following. But LinkedIn wasn't structured as an acquisition channel — content was inconsistent, outbound was manual and disconnected, and nothing tied posts, targeting, and replies into a single motion.</p>
+    <div class="constraint-grid" style="margin-top:30px">
+      <ul class="issue-list">
+        <li>Founder profiles weren't optimized for conversion</li>
+        <li>Content was too product-focused or inconsistent</li>
+        <li>Outbound ran from its own list, disconnected from content</li>
+        <li>The market needed warming before any outreach</li>
+        <li>No system connected content, targeting, messaging, and calls</li>
+      </ul>
+      <div class="brief-box">
+        <div class="t">The brief</div>
+        <p>Build a repeatable LinkedIn growth system — founder content, targeted prospecting, LinkedIn + email outbound, weekly tracking — that generates qualified conversations without hiring a single new SDR.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE WORK / CASES -->
+<section class="section">
+  <div class="wrap">
+    <div class="kicker">The work</div>
+    <h2>Three companies. Three jobs to be done.</h2>
+    <p class="body" style="margin-bottom:34px">Each engagement had its own goal, so each carries its own numbers.</p>
+
+    <!-- KENOMIC : full system -->
+    <div class="case">
+      <div class="case-head">
+        <div class="ci">
+          <span class="tag">Full system · content + outbound</span>
+          <h3>Kenomic</h3>
+          <div class="ind">Blockchain infrastructure · token economy design</div>
+        </div>
+        <div class="headline"><em>425K</em> impressions/mo &amp; <em>34</em> calls booked in one month</div>
+      </div>
+      <div class="case-body">
+        <div class="lbl">The job</div>
+        <p>Make an AI-powered token-economy platform legible to a niche B2B audience, then turn that visibility into booked calls. The hardest brief of the three: selling something most of the market can't yet explain.</p>
+        <div class="lbl">What ran</div>
+        <ul class="plays">
+          <li><b>Company content engine</b> — product narratives, workshop and live-event content, reaching 425K impressions/month</li>
+          <li><b>LinkedIn DM outbound</b> — 800 prospects identified and contacted, ~30 personalized DMs/day</li>
+          <li><b>Email outbound</b> — layered on top of LinkedIn for extra touchpoints</li>
+          <li><b>Strategic commenting</b> — visibility inside the conversations the ICP already follows</li>
+        </ul>
+        <div class="lbl">Results</div>
+        <div class="res-grid">
+          <div class="r"><div class="v">425K+</div><div class="k">Impressions / month</div></div>
+          <div class="r"><div class="v w">800</div><div class="k">Prospects contacted</div></div>
+          <div class="r"><div class="v">34</div><div class="k">Calls booked (1 month)</div></div>
+          <div class="r"><div class="v w">~30</div><div class="k">DMs / day</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVEEL : founder content -->
+    <div class="case">
+      <div class="case-head">
+        <div class="ci">
+          <span class="tag">Founder content engine</span>
+          <h3>Reveel Technology</h3>
+          <div class="ind">Web3 fintech · global payments</div>
+        </div>
+        <div class="headline"><em>250K</em> impressions/mo &amp; a <em>7,800+</em> following built from zero</div>
+      </div>
+      <div class="case-body">
+        <div class="lbl">The job</div>
+        <p>Build founder authority for Adrien Stern around stablecoin payments, global payments, and payment UX — turning a complex infrastructure story into a following that compounds.</p>
+        <div class="lbl">What ran</div>
+        <ul class="plays">
+          <li><b>Founder-led content</b> — 3–4 posts/week, mixing market POV, product narrative, and proof</li>
+          <li><b>Positioning rewrite</b> — profile and headline built to convert visitors, not just describe a title</li>
+          <li><b>Narrative angles</b> — stablecoins, social payments, and global payment infrastructure</li>
+        </ul>
+        <div class="lbl">Results</div>
+        <div class="res-grid">
+          <div class="r"><div class="v">250K+</div><div class="k">Impressions / month</div></div>
+          <div class="r"><div class="v w">7,800+</div><div class="k">Followers built</div></div>
+          <div class="r"><div class="v">690+</div><div class="k">Reactions, top post</div></div>
+          <div class="r"><div class="v w">180+</div><div class="k">Comments, top post</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODJO : founder content volume -->
+    <div class="case">
+      <div class="case-head">
+        <div class="ci">
+          <span class="tag">Founder content at volume</span>
+          <h3>Modjo Agency</h3>
+          <div class="ind">B2B growth agency</div>
+        </div>
+        <div class="headline"><em>420K</em> impressions from <em>22</em> founder posts in a month</div>
+      </div>
+      <div class="case-body">
+        <div class="lbl">The job</div>
+        <p>Give founder Alexy a consistent, high-output content presence that builds authority and keeps the agency visible to the exact decision-makers it sells to.</p>
+        <div class="lbl">What ran</div>
+        <ul class="plays">
+          <li><b>Founder-led content at cadence</b> — 22 posts in a month, built around pain points, opinion, and proof</li>
+          <li><b>Weekly content review</b> — angles weighted toward whatever drove engagement that week</li>
+          <li><b>Profile positioning</b> — set up so new visitors understood the offer in seconds</li>
+        </ul>
+        <div class="lbl">Results</div>
+        <div class="res-grid">
+          <div class="r"><div class="v">420K</div><div class="k">Impressions / month</div></div>
+          <div class="r"><div class="v w">22</div><div class="k">Founder posts / month</div></div>
+          <div class="r"><div class="v">~19K</div><div class="k">Avg impressions / post</div></div>
+          <div class="r"><div class="v w">0</div><div class="k">New SDRs hired</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHAT WE BUILT / ARCH -->
+<section class="section">
+  <div class="wrap">
+    <div class="kicker">The system</div>
+    <h2>What we built</h2>
+    <p class="body" style="margin-bottom:30px">Five connected blocks. The unit of work is the account and the founder's authority — never a single isolated channel.</p>
+    <div class="arch">
+      <div class="block"><div class="bn">01</div><div>
+        <h3>Founder positioning</h3>
+        <ul><li>Rewrote founder positioning</li><li>Clarified headline + profile message</li><li>Complex offers → simple narratives</li><li>Profiles built to earn trust pre-outreach</li></ul>
+      </div></div>
+      <div class="block"><div class="bn">02</div><div>
+        <h3>Content engine</h3>
+        <ul><li>Founder-led posts</li><li>Angles: pain points, trends, product, proof</li><li>Warms the market before outbound</li><li>Educational · opinion · proof · POV</li></ul>
+        <div class="freq">3–4 founder posts/wk · weekly review</div>
+      </div></div>
+      <div class="block"><div class="bn">03</div><div>
+        <h3>Target account research</h3>
+        <ul><li>Segmented target lists</li><li>Prioritized by role, type, relevance, intent</li><li>Split by persona + message angle</li><li>Founders · CEOs · Growth · BD · Investors</li></ul>
+      </div></div>
+      <div class="block"><div class="bn">04</div><div>
+        <h3>LinkedIn + email outbound</h3>
+        <ul><li>LinkedIn DM sequences</li><li>Short, human first messages</li><li>Pain-point follow-ups</li><li>Email support · per-persona messaging</li></ul>
+        <div class="freq">~30 DMs/day · email layered · 3–5 touchpoints each</div>
+      </div></div>
+      <div class="block"><div class="bn">05</div><div>
+        <h3>KPI tracking &amp; optimization</h3>
+        <ul><li>Acceptance · reply · positive-reply rates</li><li>Calls booked · best angles · best personas</li><li>Objections + lost reasons logged</li></ul>
+        <div class="freq">Weekly review · weekly iteration · monthly ICP refinement</div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="section">
+  <div class="wrap">
+    <div class="kicker">The stack</div>
+    <h2>Tools used</h2>
+    <div class="tools" style="margin-top:24px">
+      <div class="tool">LinkedIn Sales Navigator <span>· targeting</span></div>
+      <div class="tool">LinkedIn <span>· content + outbound</span></div>
+      <div class="tool">Apollo <span>· contact + email data</span></div>
+      <div class="tool">Clay <span>· enrichment</span></div>
+      <div class="tool">HubSpot / CRM <span>· tracking</span></div>
+      <div class="tool">Google Sheets <span>· reporting</span></div>
+      <div class="tool">Notion <span>· content calendar</span></div>
+      <div class="tool">Email sequencer <span>· follow-up</span></div>
+      <div class="tool">AI writing tools <span>· hooks + variations</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT THIS MEANS -->
+<section class="section">
+  <div class="wrap">
+    <div class="means">
+      <div class="t">What this means for you</div>
+      <h2>LinkedIn works when it's a system, not a posting habit.</h2>
+      <p>Founder positioning warms the market. Content keeps the profile credible. Targeted outbound starts the conversation while the brand is still fresh. Tracking tells you which angle earned its budget. Run together, that's how a flat channel turns into booked calls — without adding headcount.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CSJ -->
+<section class="section">
+  <div class="wrap">
+    <div class="csj">
+      <span class="tag">Built for your market</span>
+      <h2>How this applies to CSJ Design Collaborative</h2>
+      <p class="lead">The same system adapts to reach architects, developers, contractors, telecom &amp; tower companies, real estate groups, and commercial project decision-makers.</p>
+      <div class="csj-cols">
+        <div>
+          <h4>Target segments</h4>
+          <div class="pill-row">
+            <span class="pill">Architecture firms</span><span class="pill">Real estate developers</span>
+            <span class="pill">General contractors</span><span class="pill">Commercial builders</span>
+            <span class="pill">Telecom &amp; tower companies</span><span class="pill">Property groups</span>
+            <span class="pill">Engineering firms</span><span class="pill">Construction PMs</span>
+          </div>
+        </div>
+        <div>
+          <h4>Content pillars</h4>
+          <div class="pill-row">
+            <span class="pill">BIM project support</span><span class="pill">Structural engineering</span>
+            <span class="pill">Tower engineering</span><span class="pill">Project examples</span>
+            <span class="pill">Technical breakdowns</span><span class="pill">Before / after</span>
+            <span class="pill">Founder credibility</span><span class="pill">Delivery &amp; capacity</span>
+          </div>
+        </div>
+      </div>
+      <div class="forecast">
+        <div class="fhead">CSJ · 90-day forecast (conservative)</div>
+        <div class="fgrid">
+          <div class="fitem"><span>Target accounts researched</span><span class="fv">1,000–1,500</span></div>
+          <div class="fitem"><span>Qualified contacts sourced</span><span class="fv">500–800</span></div>
+          <div class="fitem"><span>LinkedIn DMs sent</span><span class="fv">~600–900</span></div>
+          <div class="fitem"><span>Founder posts published</span><span class="fv">~36–48</span></div>
+          <div class="fitem"><span>Monthly impressions target</span><span class="fv">100K–200K</span></div>
+          <div class="fitem"><span>Positive replies</span><span class="fv">25–45</span></div>
+          <div class="fitem"><span>Qualified calls booked</span><span class="fv">15–30</span></div>
+          <div class="fitem"><span>Qualified opportunities</span><span class="fv">5–10</span></div>
+          <div class="fitem pipeline"><span>Potential qualified pipeline*</span><span class="fv">$300K–$800K</span></div>
+        </div>
+      </div>
+      <div class="note">Reveel, Kenomic, and Modjo figures are based on real client work. CSJ figures are conservative forecasts based on comparable campaign benchmarks, not guarantees. Pipeline range depends on average project value.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final" id="cta">
+  <div class="wrap">
+    <h2>Want to see what this system looks like for your market?</h2>
+    <p>We map your target accounts, build your founder positioning, run the content engine, and launch LinkedIn + email outbound designed to book qualified calls.</p>
+    <a href="https://cal.com/kendle-team/marketing" target="_blank" rel="noopener" class="btn">Book a Strategy Call <span class="ar">→</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">KENDLE Labs · Marketing Engineers × GTM Experts × Fractional CMOs · kendle.xyz</div>
+</footer>
+</body>
+</html>
